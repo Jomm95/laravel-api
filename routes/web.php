@@ -24,14 +24,8 @@ Route::middleware('auth') //verifica se sei loggato
     // è come /admin/...
     Route::get('/', 'HomeController@index')->name('home');
 
-
+    Route::resource('posts', 'PostController');
 });
-
-
-
-
-
-
 
 // Per la parte di front-office vogliamo utilizzare
 // Vue con i suoi componenti.
