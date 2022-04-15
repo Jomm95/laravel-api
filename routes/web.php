@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +13,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware('auth') //verifica se sei loggato
+->namespace('Admin')
+->name('admin.')
+->prefix('admin')
+->group(function() {
+
+    // è come /admin/...
+    Route::get('/', 'HomeController@index')->name('home');
+
+
+});
+
+
+
+
+
+
+
+// Per la parte di front-office vogliamo utilizzare
+// Vue con i suoi componenti.
+// Ciò che dobbiamo fare è aggiungere alla fine
+// del file web.php una rotta di fallback che va a
+// mappare tutte le rotte non intercettate nelle
+// istruzioni precedenti.
+// Questa rotta viene gestita con una semplice
+// closure che restituisce una view.
+
+Route::get("{any?}", function(){
+    return view('guests.home');
+})->where("any",".*");
