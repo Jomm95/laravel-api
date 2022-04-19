@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    Ciao{{}}
+                    Ciao {{$user->name}} # {{$user->id}}
                 </div>
             </div>
         </div>

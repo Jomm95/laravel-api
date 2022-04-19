@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                <a href="{{ route('admin.posts.create') }}" class="btn btn-primary mb-3">Crea nuovo post</a>
+                <a href="{{ route('admin.posts.create')}}" class="btn btn-primary mb-3">Crea nuovo post</a>
 
                 <table class="table">
                     <thead>
