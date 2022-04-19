@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
 
+//per usare funzione per lo slug
+use Illuminate\Support\Str;
+
 class PostController extends Controller
 {
     /**
@@ -37,7 +40,46 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validazioni
+        $request->validate(
+            [
+                'title' => 'required|min:5',
+                'content' => 'required|min:10',
+
+                // accetto category_id se  esiste nella tabella categories alla colonna id
+                "category_id"=>'nullable|exists:categories,id'
+            ]
+            );
+
+            // prelevo dati dal form
+            $data = request->all();
+
+            //definisco lo slug - funzione laravel di STR (in alto: use Illuminate\Support\Str;)
+            $slug = Str::slug($data['title']);
+
+            //definisco funzione che fa si che lo slug non sia lo stesso se due titoli sono uguali.
+            //imposto un counter, poi ciclo while: query sugli slug di post se trova corrispondenza fa un append allo slug del contatore,
+            //incrementa il contatore. Se non trova corrispondenza esce dal ciclo while.
+            $counter = 1;
+
+            //potrei togliere "=" e sarebbe comunque un operatore di uguaglianza
+            while(Post::where('slug', '=',  $slug)->first()){
+                
+                $slug = Str::slug($data['title']) . '-' . $counter;
+                $counter++;
+
+            }
+
+            // inserisco lo slug dentro data
+            $data['slug'] = $slug;
+
+            //fill su post
+            $post->fill($data);
+            // salvo
+            $post->save();
+
+            //decido il redirect
+            return redirect()->route('admin.posts.show', $post->id);
     }
 
     /**
