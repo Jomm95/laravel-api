@@ -18,8 +18,11 @@ class PostController extends Controller
      */
     public function index()
     {
+        //preleva i dati sui post
         $posts = Post::all();
-        return view('admin.post.index', compact('posts'));
+
+          // passa dati alla vista
+        return view('Admin.post.index', compact('posts'));
     }
 
     /**
@@ -45,9 +48,6 @@ class PostController extends Controller
             [
                 'title' => 'required|min:5',
                 'content' => 'required|min:10',
-
-                // accetto category_id se  esiste nella tabella categories alla colonna id
-                "category_id"=>'nullable|exists:categories,id'
             ]
             );
 
@@ -72,6 +72,8 @@ class PostController extends Controller
 
             // inserisco lo slug dentro data
             $data['slug'] = $slug;
+
+            $post = new Post();
 
             //fill su post
             $post->fill($data);
@@ -99,9 +101,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('admin.post.edit', compact('post'));
     }
 
     /**
@@ -111,9 +113,39 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        //validazioni
+        $request->validate(
+            [
+                'title' => 'required|min:5',
+                'content' => 'required|min:10',
+            ]
+            );
+
+            // prelevo dati dal form
+            $data = $request->all();
+
+            //definisco lo slug - funzione laravel di STR (in alto: use Illuminate\Support\Str;)
+            $slug = Str::slug($data['title']);
+
+            //qualora lo slug sia diverso da quello originale del post allora eseguo il ciclo while come per store
+            if ($post->slug != $slug) {
+                $counter = 1;
+                while(Post::where('slug', $slug)->first()){
+                    $slug = Str::slug($data['title']) . "-". $counter;
+                    $counter++;
+                };
+                $data['slug']=$slug;
+            }
+
+            //fill su post
+            $post->update($data);
+            // salvo
+            $post->save();
+
+            //decido il redirect
+            return redirect()->route('admin.posts.index');
     }
 
     /**
@@ -122,8 +154,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('admin.posts.index');
     }
 }
