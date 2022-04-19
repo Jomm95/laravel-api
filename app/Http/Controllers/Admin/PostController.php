@@ -52,7 +52,7 @@ class PostController extends Controller
             );
 
             // prelevo dati dal form
-            $data = request->all();
+            $data = $request->all();
 
             //definisco lo slug - funzione laravel di STR (in alto: use Illuminate\Support\Str;)
             $slug = Str::slug($data['title']);
