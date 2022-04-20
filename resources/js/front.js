@@ -1,10 +1,13 @@
 // responsabile js frontend
-window.vue = require('vue');
+window.Vue = require('vue');
 
+// importo il componente vue
+import Vue from 'vue';
 import App from './views/App';
 
+// istanzio nuovo Vue
 const app = new Vue ({
-
-    el:'#root',
-    render: h =>h(App)
+    // circoscrivo area azione vue
+    el: '#root',
+    render: h => h(App), // mostra App all'avvio di Vue
 })
