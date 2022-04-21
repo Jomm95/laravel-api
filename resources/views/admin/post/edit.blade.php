@@ -14,12 +14,12 @@
 
                 <div class="form-group">
                   <label for="title">Titolo</label>
-                  <input type="text" class="form-control" id="title" name="title" value="{{old('title', $post->title}}">
+                  <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $post->title) }}">
                 </div>
 
                 <div class="form-group">
                   <label for="content">Contenuto post</label>
-                  <textarea class="form-control" id="content" name="content" rows="10" {{old('content', $post->title}}></textarea>
+                  <textarea class="form-control" placeholder="Inserisci il post qui" id="content" name="content" cols="50" rows="10">{{ old('content', $post->content) }}</textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Invia</button>

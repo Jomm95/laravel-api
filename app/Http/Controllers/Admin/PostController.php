@@ -21,8 +21,11 @@ class PostController extends Controller
         //preleva i dati sui post
         $posts = Post::all();
 
-          // passa dati alla vista
-        return view('Admin.post.index', compact('posts'));
+        
+
+        // passa dati alla vista
+        return view('admin.post.index', compact('posts'));
+        
     }
 
     /**
