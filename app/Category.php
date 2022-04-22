@@ -10,7 +10,7 @@ class Category extends Model
     protected $fillable = ['name', 'slug'];
     //dico che category ha molti post
     // funzione dal nome post()
-    public function post(){
+    public function post() {
         return $this->hasMany('App\Post');
     }
 }

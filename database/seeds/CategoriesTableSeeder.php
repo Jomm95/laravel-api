@@ -15,7 +15,7 @@ class CategoriesTableSeeder extends Seeder
     {
         //array con tutte le categorie
         $categories = ['Antipasti', 'Primi', 'Secondi', 'Contorni', 'Dolci'];
-        //ciclo array e per ognuno creo una istanza di gategory
+        //ciclo array e per ognuno creo una istanza di category
         foreach($categories as $category){
             $newCategory = new Category();
             $newCategory->name = $category;
