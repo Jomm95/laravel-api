@@ -49,7 +49,7 @@ class AddForeignKeyPostTable extends Migration
             $table->dropForeign('posts_category_id_foreign');
             // drop della colonna
             $table->dropColumn('category_id');
-            
+
         });
     }
 }
