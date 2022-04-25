@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Category;
 use Illuminate\Http\Request;
 
 //per usare funzione per lo slug
@@ -21,8 +22,6 @@ class PostController extends Controller
         //preleva i dati sui post
         $posts = Post::all();
 
-        
-
         // passa dati alla vista
         return view('admin.post.index', compact('posts'));
         
@@ -35,7 +34,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.post.create');
+        //prelevo le categorie
+        $categories = Category::all();
+        return view('admin.post.create', compact('categories'));
     }
 
     /**
@@ -51,6 +52,9 @@ class PostController extends Controller
             [
                 'title' => 'required|min:5',
                 'content' => 'required|min:10',
+
+                // accetto category_id se  esiste nella tabella categories alla colonna id
+                "category_id"=>'nullable|exists:categories,id'
             ]
             );
 
@@ -106,7 +110,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.post.edit', compact('post'));
+        $categories = Category::all();
+        return view('admin.post.edit', compact('post', 'categories'));
     }
 
     /**

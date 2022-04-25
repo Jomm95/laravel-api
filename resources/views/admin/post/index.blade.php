@@ -28,8 +28,9 @@
                             {{-- il contenuto mostro solo i primi 30 caratteri usando la funzione substr di php --}}
                             <td>{{ substr($post->content, 0, 30) }}</td>
                             <td>{{ $post->slug }}</td>
+                            <td>{{isset($post->category) ? $post->category->name : 'ND'}}</td>
 
-                            {{-- <td>{{ $post->category->name }}</td> --}}
+                            {{-- <td>{{ $post->category->name }}</td> """"sintassi che non funzionava""" --}}
                             
                             <td>
                               <a href="{{route('admin.posts.show', $post->id)}}" class="btn btn-primary">Vedi</a>
