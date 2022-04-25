@@ -30,7 +30,7 @@
                             <td>{{ $post->slug }}</td>
                             <td>{{isset($post->category) ? $post->category->name : 'ND'}}</td>
 
-                            {{-- <td>{{ $post->category->name }}</td> """"sintassi che non funzionava""" --}}
+                            {{-- <td>{{ $post->category->name }}</td> """"sintassi che non funzionava per category NULL""" --}}
                             
                             <td>
                               <a href="{{route('admin.posts.show', $post->id)}}" class="btn btn-primary">Vedi</a>
