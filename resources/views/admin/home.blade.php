@@ -15,6 +15,10 @@
                     @endif
 
                     Ciao {{$user->name}} # {{$user->id}}
+
+                    <br>
+
+                    Alla fine del mese mancano: {{$diffInDays}} giorni.
                 </div>
             </div>
         </div>

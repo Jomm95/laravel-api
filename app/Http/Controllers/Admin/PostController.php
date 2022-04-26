@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use App\Category;
 use App\Tag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 //per usare funzione per lo slug
@@ -112,7 +113,17 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('admin.post.show', compact('post'));
+        //prelevo timestamp attuale
+        $now = Carbon::now();
+
+        // dal DB prelevo il created_at e lo trasformo in data carbon
+        $postDateTime = Carbon::create( $post->created_at)->format('d-m-Y');
+
+        // differenza tra timestamp e creazione
+        $diffInDays = $now->diffInDays($postDateTime);
+
+        // passo alla vista
+        return view ('admin.post.show', compact('post','diffInDays'));
     }
 
     /**
