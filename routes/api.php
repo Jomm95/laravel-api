@@ -14,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// api verra chiamata alla rotta /api/posts -> stessa rotta che do ad axios
+Route::get('/posts', 'Api\PostController@index');

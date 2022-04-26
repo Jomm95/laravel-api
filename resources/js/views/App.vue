@@ -1,15 +1,18 @@
 <template>
     <div>
-        <h1>Work in progress</h1>
-        <h3>Torna tra poco!</h3>
+        <Main/>
     </div>
 </template>
 
 <script>
-export default {
-    name:'App'
+    import Main from '../components/Main'
+    export default {
+        name:'App',
+        components: {
+            Main
+        }
 
-}
+    }
 </script>
 
 <style scoped>
