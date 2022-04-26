@@ -28,6 +28,8 @@ Route::middleware('auth') //verifica se sei loggato
     Route::get('/', 'HomeController@index')->name('home');
 
     Route::resource('posts', 'PostController');
+
+    Route::resource('tags', 'TagController');
 });
 
 // Per la parte di front-office vogliamo utilizzare

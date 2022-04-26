@@ -14,7 +14,7 @@ class Post extends Model
     }
 
     //collego many to many a tags
-    public function posts() {
+    public function tags() {
         return $this->belongsToMany('App\Tag');
     }
 }

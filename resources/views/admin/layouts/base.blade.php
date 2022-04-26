@@ -40,6 +40,8 @@
 
                         <li class="mx-3"><a href="{{route('admin.posts.index')}}">Post</a></li>
 
+                        <li class="mx-3"><a href="{{route('admin.tags.index')}}">Tag</a></li>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -37,6 +37,19 @@
                   <textarea class="form-control" id="content" name="content" rows="10" {{old('content')}}></textarea>
                 </div>
 
+
+                {{-- checkbox per tags, stampo una checkbox per ogni tag --}}
+                @foreach ($tags as $tag)
+
+                  {{-- id, for e valu impostati su $tag->id --}}
+                  <div class="custom-control custom-checkbox">
+                    {{-- GESTIONE NAME: nel campo name mettiamo un array vuoto-> diamo la istruzione a html di restituirci un array con i valori check passati(nel caso gli $tag->id) --}}
+                    {{-- GESTIONE OLD: verifico in array tagsId è presente $tag->id, nel caso imposto su checked altrimenti no --}}
+                    <input name="tags[]" type="checkbox" class="custom-control-input" id="tag_{{$tag->id}}" value={{$tag->id}} {{in_array(   $tag->id,    old('tags', [])   )?'checked':''}}>
+                    <label class="custom-control-label" for="tag_{{$tag->id}}">   {{$tag->name}}    </label>
+                  </div>
+                @endforeach
+
                 <button type="submit" class="btn btn-primary">Invia</button>
 
               </form>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Post;
 use App\Category;
+use App\Tag;
 use Illuminate\Http\Request;
 
 //per usare funzione per lo slug
@@ -36,7 +37,13 @@ class PostController extends Controller
     {
         //prelevo le categorie
         $categories = Category::all();
-        return view('admin.post.create', compact('categories'));
+
+        //prelevo i tag
+        $tags = Tag::all();
+
+        return view('admin.post.create', compact('categories','tags'));
+
+    
     }
 
     /**
@@ -54,7 +61,10 @@ class PostController extends Controller
                 'content' => 'required|min:10',
 
                 // accetto category_id se  esiste nella tabella categories alla colonna id
-                "category_id"=>'nullable|exists:categories,id'
+                "category_id"=>'nullable|exists:categories,id',
+
+                // array ricevuto deve contenere valori nullable e presenti nella tabella tags alla colonna id
+                "tags" => 'nullable|exists:tags,id',
             ]
             );
 
@@ -86,6 +96,9 @@ class PostController extends Controller
             $post->fill($data);
             // salvo
             $post->save();
+
+            //creo le voci nella tabella pivot per i nostri tag
+            $post->tags()->sync($data['tags']);
 
             //decido il redirect
             return redirect()->route('admin.posts.index');
@@ -128,6 +141,8 @@ class PostController extends Controller
             [
                 'title' => 'required|min:5',
                 'content' => 'required|min:10',
+                "category_id"=>'nullable|exists:categories,id',
+                "tags" => 'nullable|exists:tags,id',
             ]
             );
 
@@ -149,8 +164,14 @@ class PostController extends Controller
 
             //fill su post
             $post->update($data);
+
             // salvo
             $post->save();
+
+            //sync-> richiamo public function post sync con id dei tag presenti con lo store dentro $data
+            if (isset($data['tags'])) {
+                $post->tags()->sync($data['tags']);
+            }
 
             //decido il redirect
             return redirect()->route('admin.posts.index');
