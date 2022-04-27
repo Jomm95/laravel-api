@@ -1,10 +1,9 @@
 <template>
 
-  <main>
-
     <div class="container">
 
       <h1>Elenco dei post</h1>
+      
 
       <div class="row">
 
@@ -20,8 +19,6 @@
           
       </div>
     </div>
-    
-  </main>
   
 </template>
 
@@ -39,7 +36,7 @@ export default {
       axios.get('/api/posts').then((response) => {
         this.posts = response.data.results;
       });
-    }
+    },
 }
 </script>
 
