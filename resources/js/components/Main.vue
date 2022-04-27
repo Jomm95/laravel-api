@@ -32,12 +32,22 @@ export default {
       }
     },
 
-    created() {
-      axios.get('/api/posts').then((response) => {
-        this.posts = response.data.results;
-      });
+    methods: {
+      // metodo per chiamata axios
+      getPosts() {
+        //rotta definita in api.php
+        axios.get('/api/posts').then((response) => {
+        this.posts = response.data.results.data;
+        });
+      },
+
     },
-}
+
+
+    created() {
+      this.getPosts();
+    },
+};
 </script>
 
 <style>

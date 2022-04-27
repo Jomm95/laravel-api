@@ -5,7 +5,9 @@
 </template>
 
 <script>
-    import Main from '../components/Main'
+    //importo component
+    import Main from '../components/Main';
+
     export default {
         name:'App',
         components: {
