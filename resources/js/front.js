@@ -12,4 +12,4 @@ const app = new Vue ({
     // circoscrivo area azione vue
     el: '#root',
     render: h => h(App), // mostra App all'avvio di Vue
-})
+});
