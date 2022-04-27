@@ -18,7 +18,7 @@ class PostController extends Controller
         //con chiamata al db prelevo tutti i post
         // $posts = Post::all();
         // questo non stamperebbe le categorie, ma solamente l'id di categoty, per risolvere
-        $posts = Post::with(['category'])->paginate(3);
+        $posts = Post::with(['category'])->paginate(2);
 
 
         //ritorno un json
